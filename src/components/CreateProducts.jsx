@@ -25,12 +25,12 @@ const CreateProducts = () => {
 						value={dataForm.name}
 						onChange={e => setDataForm({ ...dataForm, name: e.target.value })}
 						type='text'
-						placeholder='User Name'
+						placeholder='Products name'
 					/>
 					<textarea
 						value={dataForm.avatar}
 						onChange={e => setDataForm({ ...dataForm, avatar: e.target.value })}
-						placeholder='User Image'
+						placeholder='Products image'
 					></textarea>
 					<button>Create</button>
 				</form>

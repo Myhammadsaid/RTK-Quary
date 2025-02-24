@@ -33,6 +33,18 @@ export const productsApi = api.injectEndpoints({
 				},
 			],
 		}),
+		updateProductsById: builder.mutation({
+			query: ({ id, patch }) => ({
+				url: `/products/${id}`,
+				method: 'PUT',
+				body: patch,
+			}),
+			invalidatesTags: () => [
+				{
+					type: 'Products',
+				},
+			],
+		}),
 	}),
 })
 
@@ -40,4 +52,5 @@ export const {
 	useGetProductsQuery,
 	useCreateProductsMutation,
 	useDeleteProductsByIdMutation,
+	useUpdateProductsByIdMutation,
 } = productsApi

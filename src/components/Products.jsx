@@ -1,12 +1,23 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { useDeleteProductsByIdMutation } from '../store/api/products.api'
+import {
+	useDeleteProductsByIdMutation,
+	useUpdateProductsByIdMutation,
+} from '../store/api/products.api'
 import { toggleFavorites } from '../store/slices/favoritesSlice'
 
 const Products = ({ data, isLoading, isError, title, isAdminComponent }) => {
 	const dispatch = useDispatch()
 	const { favorites } = useSelector(state => state.favorites)
 	const [deleteProduct] = useDeleteProductsByIdMutation()
+	const [updateProduct] = useUpdateProductsByIdMutation()
+	const [modul, setModul] = useState(null)
+
+	const handleUpdateProduct = e => {
+		e.preventDefault()
+		updateProduct({ id: modul?.id, patch: modul })
+		setModul(null)
+	}
 
 	return (
 		<section className='products'>
@@ -31,7 +42,10 @@ const Products = ({ data, isLoading, isError, title, isAdminComponent }) => {
 										: '❤️'}
 								</span>
 								{isAdminComponent ? (
-									<button onClick={() => deleteProduct(item.id)}>🗑️</button>
+									<>
+										<button onClick={() => deleteProduct(item.id)}>🗑️</button>
+										<button onClick={() => setModul(item)}>✎</button>
+									</>
 								) : (
 									<></>
 								)}
@@ -41,6 +55,36 @@ const Products = ({ data, isLoading, isError, title, isAdminComponent }) => {
 						<h1>There's no products left</h1>
 					)}
 				</div>
+				{modul ? (
+					<form onSubmit={handleUpdateProduct} className='modul'>
+						<input
+							value={modul.name}
+							onChange={e =>
+								setModul(prev => ({ ...prev, name: e.target.value }))
+							}
+							required
+							type='text'
+							placeholder='Products name'
+						/>
+						<input
+							value={modul.avatar}
+							onChange={e =>
+								setModul(prev => ({ ...prev, avatar: e.target.value }))
+							}
+							required
+							type='text'
+							placeholder='Products image'
+						/>
+						<div className='modul__btn'>
+							<button onClick={() => setModul(null)} type='button'>
+								Cancel
+							</button>
+							<button>Submit</button>
+						</div>
+					</form>
+				) : (
+					<></>
+				)}
 			</div>
 		</section>
 	)
