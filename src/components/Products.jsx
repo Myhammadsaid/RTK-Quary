@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { NavLink } from 'react-router-dom'
 import {
 	useDeleteProductsByIdMutation,
 	useUpdateProductsByIdMutation,
@@ -32,7 +33,9 @@ const Products = ({ data, isLoading, isError, title, isAdminComponent }) => {
 						data?.map(item => (
 							<div className='products__item' key={item.id}>
 								<img src={item.avatar} alt={item.name} />
-								<h1>{item.name}</h1>
+								<NavLink to={`/products/${item.id}`}>
+									<h1>{item.name}</h1>
+								</NavLink>
 								<span
 									onClick={() => dispatch(toggleFavorites(item))}
 									className='favorites__btn'

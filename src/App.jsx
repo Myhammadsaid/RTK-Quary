@@ -6,6 +6,7 @@ import Favorites from './pages/Favorites'
 import Home from './pages/Home'
 import Login from './pages/Login'
 import Profill from './pages/Profill'
+import SingleRoute from './pages/SingleRoute'
 import PrivateRoute from './routes/PrivateRoute'
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
 			<main>
 				<Routes>
 					<Route index element={<Home />} />
+					<Route path='/products/:id' element={<SingleRoute />} />
 					<Route path='/favorites' element={<Favorites />} />
 					<Route path='/login' element={<Login />} />
 					<Route path='/profill' element={<Profill />} />

@@ -10,6 +10,11 @@ export const productsApi = api.injectEndpoints({
 				},
 			],
 		}),
+		getProductsById: builder.query({
+			query: id => ({
+				url: `/products/${id}`,
+			}),
+		}),
 		createProducts: builder.mutation({
 			query: product => ({
 				body: product,
@@ -50,6 +55,7 @@ export const productsApi = api.injectEndpoints({
 
 export const {
 	useGetProductsQuery,
+	useGetProductsByIdQuery,
 	useCreateProductsMutation,
 	useDeleteProductsByIdMutation,
 	useUpdateProductsByIdMutation,
